@@ -11,23 +11,29 @@ public class Main {
 
         try {
             String result = calculate(input);
-            System.out.println("Результат: " + result);
+            if (result.length() >= 40) {
+                System.out.println("Результат: " + result.substring(0, 40) + "...");
+            } else {
+                System.out.println("Результат: "+ result);
+            }
+
         } catch (IllegalArgumentException e) {
             System.out.println("Ошибка: " + e.getMessage());
         }
     }
 
     public static String calculate(String input) {
+
         // Разбиваем строку по первому встреченному оператору, учитывая, что оператор может быть без пробела
-        int operatorIndex = input.indexOf('+');
+        int operatorIndex = input.lastIndexOf('+');
         if (operatorIndex == -1) {
-            operatorIndex = input.indexOf('-');
+            operatorIndex = input.lastIndexOf('-');
         }
         if (operatorIndex == -1) {
-            operatorIndex = input.indexOf('*');
+            operatorIndex = input.lastIndexOf('*');
         }
         if (operatorIndex == -1) {
-            operatorIndex = input.indexOf('/');
+            operatorIndex = input.lastIndexOf('/');
         }
 
         if (operatorIndex == -1) {
@@ -81,4 +87,34 @@ public class Main {
                 throw new IllegalArgumentException("Неподдерживаемая операция: " + operator);
         }
     }
-    }
+}
+
+//Input:
+//"100" + "500"
+//
+//Output:
+//"100500"
+//
+//Input:
+//"Hi World!" - "World!"
+//
+//Output:
+//"Hi "
+//
+//Input:
+//"Bye-bye!" - "World!"
+//
+//Output:
+//"Bye-bye!"
+//
+//Input:
+//"Java" * 5
+//
+//Output:
+//"JavaJavaJavaJavaJava"
+//
+//Input:
+//"Example!!!" / 3
+//
+//Output:
+//"Exa"
